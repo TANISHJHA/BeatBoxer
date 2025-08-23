@@ -5,6 +5,10 @@ using UnityEngine;
 public class SpeedBag : MonoBehaviour
 {
     public Spawner spawner;
+    public GameObject bagHit;
+    public GameObject topTarget; 
+    public GameObject bottomTarget;
+
     private int power = 2400; //0-3000
     private int mode = 1; //1, 2, or 3 shot 
     private int bounceCnt = 0;
@@ -55,36 +59,17 @@ public class SpeedBag : MonoBehaviour
         }
             //Mode Control 
             if (Input.GetKeyDown(KeyCode.LeftShift))
-        { 
-            if(mode < 3)
-            {
-                mode++;
-            }
-            else 
-            {
-                mode = 1;
-            }
-        } 
-        switch(mode)
         {
-            case 1:
-                {
-                    power = 2000;
-                    break;
-                }
-            case 2:
-                {
-                    power = 3000;
-                    break;
-                }
-            case 3:
-                {
-                    power = 4000;
-                    break;
-                }
+            GameObject hit = Instantiate(bagHit, bottomTarget.transform.position, bottomTarget.transform.rotation);
+        } 
+        
+           
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject hit = Instantiate(bagHit, topTarget.transform.position, topTarget.transform.rotation);  
         }
         //Rotatation Controls 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             joint.useMotor = true;
             motor.motorSpeed = 600;

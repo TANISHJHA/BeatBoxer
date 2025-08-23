@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
     public GameObject target;
     public GameObject targetZone;
     public SpeedBag speedBag;
+    public Vector3 offset;
     public int numTargets = 100;
     private int currentSpawn = 0;
     private int spawnSide;
@@ -54,7 +55,7 @@ public class Spawner : MonoBehaviour
         Vector3 pos = transform.position;
         if (sides[currentSpawn] == 1)
         {
-            pos += Vector3.right * 6;
+            pos += offset;
         }
         GameObject brick = Instantiate(target, pos, transform.rotation);
         currentSpawn++; 
@@ -74,7 +75,7 @@ public class Spawner : MonoBehaviour
         else
         {
             spawnSide = 0;
-            pos += Vector3.right * 6;
+            pos += offset;
         }
         GameObject brick = Instantiate(target, pos, transform.rotation);
     }

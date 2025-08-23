@@ -2,7 +2,7 @@ using Assets.Scripts.VFX;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.XR;
+//using UnityEditor.XR;
 using UnityEngine;
 
 public class BeatDetectionEffect : VisualizationEffectBase
@@ -13,6 +13,7 @@ public class BeatDetectionEffect : VisualizationEffectBase
     private List<float>[] timings;
     private float time = 0.0f;
     private float[] lastTime;
+    private int beatCounter = 0;
     public float timeLimit = 4.0f;
     public int spectrumSize = 64;
     public float scaleFactor;
@@ -36,39 +37,41 @@ public class BeatDetectionEffect : VisualizationEffectBase
     // Update is called once per frame
     void Update()
     {
+        /*
         time += Time.deltaTime; 
         if (time >= timeLimit)
         {
             //Make decision on which subband to use to calculate bpm
-            float bpm = CalculateBPM();
+            float bpm = beatCounter / timeLimit * 60;
             Debug.Log(bpm);
             time = 0.0f;
             for (int i = 0; i < spectrumSize;i++)
             {
                 lastTime[i] = 0;
             }
-        }
+            beatCounter = 0;
+        } 
+        */
         //We will check every index and record time since last beat for 4 seconds 
         //then choose the most consistent subband to calculate BPM from. 
-        for (int i = 0; i < spectrumSize; i++)
+        bool beatData = GetBeat();
+        if (beatData && !lastBeats[0])
         {
-            this.AudioSampleIndex = i;
-            bool beatData = GetBeat();
-            if (beatData && !lastBeats[i])
-            {
-                //transform.localScale = bigScale; 
-                //spawner.beatSpawn();
-                lastBeats[i] = true;
-                timings[i].Add(time - lastTime[i]); 
-                lastTime[i] = time;
-            }
-            else if (!beatData)
-            {
-                //transform.localScale = baseScale;
-                //spawner.beatSpawn(); 
-                lastBeats[i] = false;
-            }
+            //transform.localScale = bigScale; 
+            spawner.beatSpawn();
+            lastBeats[0] = true;
+            //timings[i].Add(time - lastTime[i]); 
+            //lastTime[i] = time;
+            //Debug.Log("ya");
+            beatCounter++;
         }
+        else if (!beatData)
+        {
+            //transform.localScale = baseScale;
+            //spawner.beatSpawn(); 
+            lastBeats[0] = false;
+        }
+  
     } 
 
     private float CalculateBPM()

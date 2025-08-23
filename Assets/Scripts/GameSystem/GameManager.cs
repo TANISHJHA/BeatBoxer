@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour, IDataPersistance
 
     public void addScore()
     {
-        score += 1000; 
+        score += 100; 
         if (score > highScore)
         {
             highScore = score;
