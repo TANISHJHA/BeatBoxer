@@ -8,6 +8,7 @@ TagManager:
   - Bag
   - Target
   - Zone
+  - Miss
   layers:
   - Default
   - TransparentFX

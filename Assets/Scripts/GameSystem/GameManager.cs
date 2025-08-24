@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IDataPersistance
 {
     private int score = 0;
     private int highScore = 0;
+    private int hp = 100;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI hpText;
+    public scene_switch sceneManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +22,14 @@ public class GameManager : MonoBehaviour, IDataPersistance
     // Update is called once per frame
     void Update()
     {
-        
+        if (hp <= 0)
+        {
+            //Trigger Game over 
+            sceneManager.scene_changer("StartScreen");
+        }
     } 
+    
+
     
     public void LoadData(GameData data)
     {
@@ -39,5 +49,11 @@ public class GameManager : MonoBehaviour, IDataPersistance
             highScore = score;
         }
         scoreText.text = score.ToString();
+    } 
+
+    public void decreaseHP()
+    {
+        hp -= 10; 
+        hpText.text = hp.ToString();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpeedBag : MonoBehaviour
@@ -8,6 +9,9 @@ public class SpeedBag : MonoBehaviour
     public GameObject bagHit;
     public GameObject topTarget; 
     public GameObject bottomTarget;
+    public GameObject gameManager;
+    public GameManager gmanager;
+    public TargetZone[] targetZone; //0 left, 1 top, 2 right, 3 bottom
 
     private int power = 2400; //0-3000
     private int mode = 1; //1, 2, or 3 shot 
@@ -23,18 +27,31 @@ public class SpeedBag : MonoBehaviour
     private float startTime = 0f;
     private List<float> spawnTimings = new List<float>(); 
     private List<int> spawnSides = new List<int>();
+    private bool onZone = false;
+    private bool onTarget = false;
+    private bool missCooldown = true;
+    private float coolTime = 0.0f;
+    private float timetoCool = 1.0f; 
     // Start is called before the first frame update
     void Start()
     { 
         rb = GetComponent<Rigidbody2D>();
         joint = GetComponent<HingeJoint2D>();
         motor = joint.motor;
+        //gmanager = gameManager.GetComponent<GameManager>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         timeElapsed += Time.deltaTime;
+        coolTime += Time.deltaTime; 
+        if (coolTime >= timetoCool)
+        {
+            coolTime = 0.0f;
+            missCooldown = true;
+        }
         //Control recording (for DEBUG purpose for now) 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -57,16 +74,35 @@ public class SpeedBag : MonoBehaviour
             }
             
         }
-            //Mode Control 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+
+        //Debug.Log(targetZone[3].hasTarget());
+        //Mode Control 
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            GameObject hit = Instantiate(bagHit, bottomTarget.transform.position, bottomTarget.transform.rotation);
+            Debug.Log(targetZone[3].hasTarget());
+            if (!targetZone[3].hasTarget())
+            {
+                gmanager.decreaseHP();
+            }
+            else
+            {
+                GameObject hit = Instantiate(bagHit, bottomTarget.transform.position, bottomTarget.transform.rotation);
+            }
         } 
         
            
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject hit = Instantiate(bagHit, topTarget.transform.position, topTarget.transform.rotation);  
+            Debug.Log(targetZone[1].hasTarget());
+            if (!targetZone[1].hasTarget())
+            {
+                gmanager.decreaseHP();
+            } 
+            else
+            {
+                GameObject hit = Instantiate(bagHit, topTarget.transform.position, topTarget.transform.rotation);
+            }
+  
         }
         //Rotatation Controls 
         if (Input.GetKeyDown(KeyCode.P))
@@ -122,6 +158,17 @@ public class SpeedBag : MonoBehaviour
                 power += 100;
             }
         } 
+        
+        if (!onTarget && onZone && missCooldown)
+        {
+            gmanager.decreaseHP();
+            missCooldown = false;
+        } 
+
+        if (onTarget && onZone)
+        {
+            missCooldown = false;
+        }
 
 
     }
@@ -152,6 +199,7 @@ public class SpeedBag : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        /*
         //For recording tracks 
         if (recording)
         {
@@ -174,6 +222,33 @@ public class SpeedBag : MonoBehaviour
                     spawnSides.Add(0);
                 }
             }
+        } 
+        */
+
+        if (collision.gameObject.CompareTag("Zone"))
+        {
+            onZone = true;
+        } 
+
+        if (collision.gameObject.CompareTag("Target"))
+        {
+            onTarget = true;
+            missCooldown = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Target"))
+        {
+            //Destroy(this.gameObject); 
+            onTarget = false;
+        }
+
+        if (other.gameObject.CompareTag("Zone"))
+        {
+            //Destroy(this.gameObject); 
+            onZone = false;
         }
     }
 
