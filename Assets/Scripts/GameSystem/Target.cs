@@ -7,13 +7,16 @@ public class Target : MonoBehaviour
     private bool onBag = false;
     private bool onZone = false;
     public float speed = 1.0f;
+    public float difficulty = 1.0f;
     public GameObject manager;
     public GameObject hitEffect;
-    private GameManager gameManager;
+    private GameManager gameManager; 
+
+
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 3.0f);
+        Destroy(gameObject, difficulty);
         manager = GameObject.Find("GameManager");
         gameManager = manager.GetComponent<GameManager>();
     }

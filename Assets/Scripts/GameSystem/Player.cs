@@ -9,9 +9,12 @@ public class Player : MonoBehaviour
     { 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            FindObjectOfType<scene_switch>().scene_changer("BeatBoxer");
+            scene_switch switchManager = FindObjectOfType<scene_switch>();
+            switchManager.scene_changer();
         }
         
-    }
+    } 
+
+
 
 }

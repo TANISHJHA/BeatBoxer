@@ -7,9 +7,16 @@ public class Spawner : MonoBehaviour
 {
     public GameObject target;
     public GameObject targetZone;
+    public TargetZone[] zones;
     public SpeedBag speedBag;
     public Vector3 offset;
     public int numTargets = 100;
+    public float easyDifficulty = 1.0f;
+    public float mediumDifficulty = 0.8f;
+    public float hardDifficulty = 0.5f;
+    public float extremeDifficulty = 0.4f;
+    public float difficulty;
+    public int setDifficulty;
     private int currentSpawn = 0;
     private int spawnSide;
     public List<float> spawnTimings = new List<float>(); //Array holding how many seconds to wait before spawning next target. 
@@ -21,6 +28,22 @@ public class Spawner : MonoBehaviour
         if (speedBag.isRecording())
         {
             stopSpawn = true;
+        } 
+
+        switch(setDifficulty)
+        {
+            case 0:
+                difficulty = easyDifficulty;
+                break; 
+            case 1:
+                difficulty = mediumDifficulty;
+                break;
+            case 2:
+                difficulty = hardDifficulty;
+                break;
+            case 3:
+                difficulty = extremeDifficulty;
+                break;
         }
     }
 
@@ -57,7 +80,7 @@ public class Spawner : MonoBehaviour
         {
             pos += offset;
         }
-        GameObject brick = Instantiate(target, pos, transform.rotation);
+        //GameObject brick = Instantiate(target, pos, transform.rotation);
         currentSpawn++; 
         if (currentSpawn < numTargets)
         {
@@ -76,8 +99,12 @@ public class Spawner : MonoBehaviour
         {
             spawnSide = 0;
             pos += offset;
+        } 
+        if (!zones[spawnSide].hasTarget())
+        {
+            target.GetComponent<Target>().difficulty = difficulty;
+            GameObject brick = Instantiate(target, pos, transform.rotation);
         }
-        GameObject brick = Instantiate(target, pos, transform.rotation);
     }
 
     public void giveRecordings(List<float> timings, List<int> sides)

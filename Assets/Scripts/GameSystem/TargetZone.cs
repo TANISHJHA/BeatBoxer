@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TargetZone : MonoBehaviour
 {
-    private bool targetAva = false;
+    private int targetsEntered = 0;
+    private int targetsExited = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,14 @@ public class TargetZone : MonoBehaviour
 
     public bool hasTarget()
     {
-        return targetAva;
+        if (targetsEntered > targetsExited)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -28,7 +36,7 @@ public class TargetZone : MonoBehaviour
         if (other.gameObject.CompareTag("Target"))
         {
             //Destroy(this.gameObject); 
-            targetAva = true;
+            targetsEntered += 1;
         }
     }
 
@@ -36,7 +44,7 @@ public class TargetZone : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Target"))
         {
-            targetAva = false;
+            targetsExited += 1;
         }
     }
 }
