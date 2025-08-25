@@ -44,7 +44,11 @@ public class SpeedBag : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
+        if (gmanager.isPaused)
+        {
+            return;
+        }
         timeElapsed += Time.deltaTime;
         coolTime += Time.deltaTime; 
         if (coolTime >= timetoCool)

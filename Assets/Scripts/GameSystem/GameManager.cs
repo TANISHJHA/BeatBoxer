@@ -10,16 +10,20 @@ public class GameManager : MonoBehaviour, IDataPersistance
     private int score = 0;
     private int highScore = 0;
     private int hp = 100;
+    public bool isPaused = false;
     public int CountFPS = 30;
     public int Duration = 1;
     public string NumberFormat = "N0";
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI hpText; 
+    public TextMeshProUGUI highScoreText;
+    public GameObject pauseMenu;
     public scene_switch sceneManager;
     // Start is called before the first frame update
     void Start()
     {
-        //addScore();
+        //addScore(); 
+        pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,11 +37,22 @@ public class GameManager : MonoBehaviour, IDataPersistance
         }
     } 
     
+    public void pause()
+    {
+        isPaused = true; 
+        pauseMenu.SetActive(true);
+    } 
 
+    public void closeApplication()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
+    }
     
     public void LoadData(GameData data)
     {
         this.highScore = data.highScore;
+        highScoreText.SetText("High Score: " + data.highScore);
     }
 
     public void SaveData(ref GameData data)

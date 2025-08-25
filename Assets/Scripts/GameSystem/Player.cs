@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameManager gameManager;
     // Update is called once per frame
     void Update()
     { 
@@ -11,7 +12,9 @@ public class Player : MonoBehaviour
         {
             scene_switch switchManager = FindObjectOfType<scene_switch>();
             switchManager.scene_changer();
-        }
+        } 
+
+
         
     } 
 
