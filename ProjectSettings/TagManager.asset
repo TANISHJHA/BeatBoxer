@@ -9,6 +9,7 @@ TagManager:
   - Target
   - Zone
   - Miss
+  - Wall
   layers:
   - Default
   - TransparentFX

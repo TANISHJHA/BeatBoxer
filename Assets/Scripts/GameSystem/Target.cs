@@ -16,7 +16,7 @@ public class Target : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, difficulty);
+        Invoke("miss", difficulty);
         manager = GameObject.Find("GameManager");
         gameManager = manager.GetComponent<GameManager>();
     }
@@ -24,6 +24,10 @@ public class Target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameManager.isPaused)
+        {
+            Destroy(this.gameObject);
+        }
         //transform.position += Vector3.down * speed * Time.deltaTime; 
         transform.localScale = transform.localScale * 1.001f;
         if (onBag && onZone)
@@ -65,5 +69,11 @@ public class Target : MonoBehaviour
             //Destroy(this.gameObject); 
             onZone = false;
         }
+    } 
+
+    private void miss()
+    {
+        gameManager.missUpdate();
+        Destroy(this.gameObject);
     }
 }

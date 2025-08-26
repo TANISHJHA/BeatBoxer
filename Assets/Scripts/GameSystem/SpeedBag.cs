@@ -31,13 +31,15 @@ public class SpeedBag : MonoBehaviour
     private bool onTarget = false;
     private bool missCooldown = true;
     private float coolTime = 0.0f;
-    private float timetoCool = 1.0f; 
+    private float timetoCool = 0.5f;
+    private Vector3 resetVector;
     // Start is called before the first frame update
     void Start()
     { 
         rb = GetComponent<Rigidbody2D>();
         joint = GetComponent<HingeJoint2D>();
-        motor = joint.motor;
+        motor = joint.motor; 
+        resetVector = this.transform.position;
         //gmanager = gameManager.GetComponent<GameManager>();
         
     }
@@ -83,7 +85,7 @@ public class SpeedBag : MonoBehaviour
         //Mode Control 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            Debug.Log(targetZone[3].hasTarget());
+            //Debug.Log(targetZone[3].hasTarget());
             if (!targetZone[3].hasTarget())
             {
                 gmanager.decreaseHP();
@@ -97,7 +99,7 @@ public class SpeedBag : MonoBehaviour
            
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log(targetZone[1].hasTarget());
+            //Debug.Log(targetZone[1].hasTarget());
             if (!targetZone[1].hasTarget())
             {
                 gmanager.decreaseHP();
@@ -228,6 +230,10 @@ public class SpeedBag : MonoBehaviour
             }
         } 
         */
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            //TODO later. Figure out how to reset the bag. 
+        }
 
         if (collision.gameObject.CompareTag("Zone"))
         {

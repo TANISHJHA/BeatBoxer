@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
 {
     public GameObject target;
     public GameObject targetZone;
+    public GameManager gameManager;
     public TargetZone[] zones;
     public SpeedBag speedBag;
     public Vector3 offset;
@@ -90,6 +91,10 @@ public class Spawner : MonoBehaviour
 
     public void beatSpawn()
     {
+        if (gameManager.isPaused)
+        {
+            return;
+        }
         Vector3 pos = targetZone.transform.position;
         if (spawnSide == 0)
         {
@@ -104,6 +109,7 @@ public class Spawner : MonoBehaviour
         {
             target.GetComponent<Target>().difficulty = difficulty;
             GameObject brick = Instantiate(target, pos, transform.rotation);
+            gameManager.updateTotalTargets();
         }
     }
 
