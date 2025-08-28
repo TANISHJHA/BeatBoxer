@@ -83,8 +83,12 @@ public class SpeedBag : MonoBehaviour
 
         //Debug.Log(targetZone[3].hasTarget());
         //Mode Control 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.S))
         {
+            if (targetZone.Length < 4)
+            {
+                return;
+            }
             //Debug.Log(targetZone[3].hasTarget());
             if (!targetZone[3].hasTarget())
             {
@@ -97,8 +101,12 @@ public class SpeedBag : MonoBehaviour
         } 
         
            
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.W))
         {
+            if (targetZone.Length < 4)
+            {
+                return;
+            }
             //Debug.Log(targetZone[1].hasTarget());
             if (!targetZone[1].hasTarget())
             {
@@ -131,7 +139,7 @@ public class SpeedBag : MonoBehaviour
         float curZ = current.z;
         Vector3 perp = Vector3.up * curY * dirYMult + Vector3.right * curX * dirXMult + Vector3.forward * curZ; 
         Vector3 perp2 = Vector3.up * curY * dirXMult + Vector3.right * curX * dirYMult + Vector3.forward * curZ;
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             if (power < 0)
             {
@@ -140,7 +148,7 @@ public class SpeedBag : MonoBehaviour
             punch(perp);
         } 
 
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if(Input.GetKeyDown(KeyCode.D))
         {
             if (power > 0)
             {

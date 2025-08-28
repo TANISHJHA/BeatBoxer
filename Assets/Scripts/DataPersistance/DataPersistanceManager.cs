@@ -46,7 +46,7 @@ public class DataPersistanceManager : MonoBehaviour
         {
             obj.LoadData(gameData);
         }
-        Debug.Log("Loaded high score:" + gameData.highScore);
+        Debug.Log("Loaded high score:" + gameData.easyHighScore);
     } 
 
     public void SaveGame()
@@ -59,7 +59,7 @@ public class DataPersistanceManager : MonoBehaviour
 
         fileDataHandler.Save(gameData);
 
-        Debug.Log("Saved high score:" + gameData.highScore); 
+        Debug.Log("Saved high score:" + gameData.easyHighScore); 
     }
 
     private void OnApplicationQuit()

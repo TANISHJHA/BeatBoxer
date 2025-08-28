@@ -1820,7 +1820,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Extreme
+  m_text: Champ
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02e92bf99b4ef1f48b26cd0b9df18e5b, type: 2}
   m_sharedMaterial: {fileID: 5598859362846520029, guid: 02e92bf99b4ef1f48b26cd0b9df18e5b, type: 2}
@@ -2834,7 +2834,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Medium
+  m_text: Pro
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02e92bf99b4ef1f48b26cd0b9df18e5b, type: 2}
   m_sharedMaterial: {fileID: 5598859362846520029, guid: 02e92bf99b4ef1f48b26cd0b9df18e5b, type: 2}
@@ -5629,6 +5629,7 @@ MonoBehaviour:
   mediumButton: {fileID: 268209782}
   hardButton: {fileID: 1165868847}
   extremeButton: {fileID: 534036386}
+  currentDifficulty: 0
 --- !u!1 &1420682301
 GameObject:
   m_ObjectHideFlags: 0
@@ -6065,7 +6066,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Easy
+  m_text: Amateur
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02e92bf99b4ef1f48b26cd0b9df18e5b, type: 2}
   m_sharedMaterial: {fileID: 5598859362846520029, guid: 02e92bf99b4ef1f48b26cd0b9df18e5b, type: 2}
@@ -6273,7 +6274,12 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   hpText: {fileID: 0}
   highScoreText: {fileID: 65923062}
+  comboText: {fileID: 0}
+  accuracyText: {fileID: 0}
   pauseMenu: {fileID: 1130441295}
+  dataPersistanceManager: {fileID: 1057832643}
+  selector: {fileID: 1420215252}
+  difficulty: 0
   sceneManager: {fileID: 0}
 --- !u!114 &1477107523
 MonoBehaviour:
@@ -6718,7 +6724,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hard
+  m_text: Master
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02e92bf99b4ef1f48b26cd0b9df18e5b, type: 2}
   m_sharedMaterial: {fileID: 5598859362846520029, guid: 02e92bf99b4ef1f48b26cd0b9df18e5b, type: 2}

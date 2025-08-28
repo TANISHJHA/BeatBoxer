@@ -3948,6 +3948,9 @@ MonoBehaviour:
   comboText: {fileID: 743815021}
   accuracyText: {fileID: 1845328774}
   pauseMenu: {fileID: 1895771140}
+  dataPersistanceManager: {fileID: 660531458}
+  selector: {fileID: 0}
+  difficulty: 0
   sceneManager: {fileID: 1533226437}
 --- !u!224 &1457581114
 RectTransform:
